@@ -238,3 +238,28 @@ const taro = new Taro();
 taro.greeting(); // public メンバーは実行可能
 taro.great(); // protected メンバーは実行不可
 taro.shakeHands(); // 親クラスのpublic メンバーは実行可能
+
+//列挙型
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right,
+}
+const left = Direction.Left;
+
+enum Ports {
+  USER_SERVICE = '8080',
+  REGISTER_SERVICE = '8081',
+  MEDIA_SERVICE = '8888',
+}
+
+enum XPorts {
+  USER_SERVICE = '8080',
+}
+enum XPorts {
+  REGISTER_SERVICE = '8081',
+}
+enum Ports {
+  MEDIA_SERVICE = '8888',
+}
