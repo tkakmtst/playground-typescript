@@ -64,10 +64,10 @@ objectType = false; // Error
 objectType = 1; // Error
 
 // Intersection
-type Dog = {
-  tail: Tail;
-  bark: () => void;
-};
+// type Dog = {
+//   tail: Tail;
+//   bark: () => void;
+// };
 
 type Bird = {
   wing: Wing;
@@ -123,3 +123,118 @@ bit = 8;
 let truth: true;
 truth = true;
 // truth = false
+
+// typeof
+let asString: string = '';
+let typeofValue: typeof asString;
+typeofValue = 'value';
+// typeofValue = 9;
+
+let myObject = { foo: 'foo' };
+let anotherObject: typeof myObject = { foo: '' };
+anotherObject['foo'] = 'value';
+// anotherObject['bar'] = 'value'; Error
+
+//keyof
+type someType = {
+  foo: string;
+  bar: string;
+  baaz: string;
+};
+
+let someKey: keyof someType;
+
+const myObject1 = {
+  foo: 'FOO',
+  bar: 'BAR',
+  baz: 'BAZ',
+};
+let myObjectKey: keyof typeof myObject1;
+myObjectKey = 'bar';
+// myObjectKey = 'qax'; Error
+
+const indexedObject = {
+  0: 0,
+  1: 1,
+};
+let indexedKey: keyof typeof indexedObject;
+indexedKey = 1;
+// indexedKey = 2; Error
+
+//アサーション
+let someValue: any = 'this is a string';
+let strLength: number = (<string>someValue).length;
+
+let someValue1: any = 'this is a string';
+let strLength1: number = (someValue1 as string).length;
+
+// クラス
+class Creature {
+  numberOfHands: number;
+  numberOfFeet: number;
+  constructor(numberOfHands: number, numberOfFeet: number) {
+    this.numberOfHands = numberOfHands;
+    this.numberOfFeet = numberOfFeet;
+  }
+}
+const creature = new Creature(0, 4);
+
+class Dog extends Creature {
+  bark: string;
+
+  constructor(bark: string) {
+    super(0, 4);
+    this.bark = bark;
+  }
+
+  barking() {
+    return `${this.bark}! ${this.bark}`;
+  }
+  shakeTail() {
+    console.log(this.barking());
+  }
+}
+
+class Human extends Creature {
+  name: string;
+  constructor(name: string) {
+    super(2, 2);
+    this.name = name;
+  }
+  greet() {
+    return `Hello! I'm ${this.name}`;
+  }
+  shakeHands() {
+    console.log(this.greet());
+  }
+}
+const dog = new Dog('bow-wow');
+const human = new Human('Hanako');
+
+class Human1 extends Creature {
+  protected name: string;
+  constructor(name: string) {
+    super(2, 2);
+    this.name = name;
+  }
+  protected greet() {
+    return `Hello! I'm ${this.name}.`;
+  }
+  public shakeHands() {
+    console.log(this.greet());
+  }
+}
+
+class Taro extends Human1 {
+  constructor() {
+    super('Taro');
+  }
+  public greeting() {
+    console.log(this.greet());
+  }
+}
+
+const taro = new Taro();
+taro.greeting(); // public メンバーは実行可能
+taro.great(); // protected メンバーは実行不可
+taro.shakeHands(); // 親クラスのpublic メンバーは実行可能
